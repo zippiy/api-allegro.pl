@@ -13,8 +13,10 @@ curl -X POST 'https://allegro.pl/auth/oauth/device' -H "Authorization: Basic $au
 curl -X POST "https://allegro.pl/auth/oauth/token?grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Adevice_code&device_code=$device_code" -H "Authorization: Basic $auth"
 
 
-## Simple product listing dump
+## Simple product listing dump as JSON
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $token" 'https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=0&limit=100' | jq '.items.regular | .[] | {id: .id, name: .name, price: .sellingMode.price.amount, seller: .seller.id}'
+## as CSV
+curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $token" 'https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=0&limit=50' | jq '.items.regular | .[] | .id + ", " + .name + ", " + .sellingMode.price.amount + ", "+ .seller.id'
 
 ## Simple category dump
 curl -X GET -H "Authorization: Bearer $token" -H 'Accept: application/vnd.allegro.public.v1+json' 'https://api.allegro.pl/sale/categories?parent.id=258832' | jq
