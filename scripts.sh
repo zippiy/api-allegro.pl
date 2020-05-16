@@ -25,7 +25,7 @@ curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorizati
 ## Number of offers
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=0&limit=100' | jq '.filters[0].values[0] | .'
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json;charset=UTF-8' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=ocet%20jab%C5%82kowy&category.id=73973&sort=+price&offset=0&limit=100' | jq '.filters[0].values[0] | .'
-
+curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json;charset=UTF-8' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=morele%20suszone%20bio&category.id=73973&sort=+price&offset=0&limit=100' | jq '.filters[0].values[0] | .'
 
 ## Quotes in csv removed
 curl -X GET  -H "Accept: application/vnd.allegro.public.v1+json" -H "Authorization: Bearer $token" "https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=$offset&limit=50" | jq -r '.items | select(.regular or .promoted) | .[] | .[] | .id + ", " + .name + ", " + .sellingMode.price.amount + ", "+ .seller.id'
@@ -44,3 +44,8 @@ curl -X GET 'https://api.allegro.pl/sale/products?phrase=majonez' -H "Authorizat
 5.
 ## url & seller.id link
 wget https://allegro.pl/uzytkownik/10787036/oceny
+
+6. 
+for offset in {0..350..50}; do 
+curl -X GET  -H "Accept: application/vnd.allegro.public.v1+json" -H "Authorization: Bearer $token" "https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=$offset&limit=50" | jq -r '.items | select(.regular or .promoted) | .[] | .[] | [.name, .id, .images[0].url, .sellingMode.price.amount, .seller.id] | @csv' > m2-$offset.txt;
+done
