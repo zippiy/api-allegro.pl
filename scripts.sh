@@ -1,8 +1,15 @@
+## Env variables to be set accordingly
+export auth=
+export client_id=
+export device_code=
+export device_token=
 
-## Auth Device == User context/app. Auth is base64 encoded client id : client secret according to Allegro API spec
+## Auth Device == User context/app. %auth is base64 encoded client id : client secret according to Allegro API spec
+## Save output as $device_code
 curl -X POST 'https://allegro.pl/auth/oauth/device' -H "Authorization: Basic $auth" -H 'Content-Type: application/x-www-form-urlencoded' -d 'client_id=$client_id'
 
 ## get token for given device and user. Call to obtain new auth or use refresh token
+## Save output as $device_token
 curl -X POST "https://allegro.pl/auth/oauth/token?grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Adevice_code&device_code=$device_code" -H "Authorization: Basic $auth"
 
 
