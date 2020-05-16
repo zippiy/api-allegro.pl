@@ -39,3 +39,6 @@ curl -X GET -H "Authorization: Bearer $token" -H 'Accept: application/vnd.allegr
 ## Not public API, user context is needed
 curl -X GET 'https://api.allegro.pl/sale/products?phrase=majonez' -H "Authorization: Bearer $device_token" -H 'Accept: application/vnd.allegro.public.v1+json' -H 'content-type: application/vnd.allegro.public.v1+json'  
 
+5.
+## url & seller.id link
+wget https://allegro.pl/uzytkownik/10787036/oceny
