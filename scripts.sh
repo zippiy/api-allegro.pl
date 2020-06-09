@@ -5,6 +5,8 @@ export device_code=
 export device_token=
 
 1. 
+curl -X POST 'https://allegro.pl/auth/oauth/token?grant_type=client_credentials' -H "Authorization: Basic $auth"
+
 ## Auth Device == User context/app. %auth is base64 encoded client id : client secret according to Allegro API spec
 ## Save output as $device_code
 curl -X POST 'https://allegro.pl/auth/oauth/device' -H "Authorization: Basic $auth" -H 'Content-Type: application/x-www-form-urlencoded' -d 'client_id=$client_id'
