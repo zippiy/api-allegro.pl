@@ -23,6 +23,9 @@ curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorizati
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=%C5%9Bliwki%20suszone%20bio%20kg&category.id=73973&sort=+price&offset=0&limit=50' | jq -r '.items.regular | .[] | [.id, .name, .sellingMode.price.amount, .seller.id] | @csv'
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=morele%20suszone%20bio%20kg&category.id=73973&sort=+price&offset=0&limit=50' | jq -r '.items.regular | .[] | [.id, .name, .sellingMode.price.amount, .seller.id] | @csv'
  
+## Example: sugar bio kg 
+curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=cukier%20bio%20kg&category.id=73973&sort=+price&offset=0&limit=50' | jq -r '.items.regular | .[] | [.id, .name, .sellingMode.price.amount, .seller.id] | @csv'
+ 
 
 ## Promoted and regular items merged together as CSV
 curl -X GET  -H 'Accept: application/vnd.allegro.public.v1+json' -H "Authorization: Bearer $device_token" 'https://api.allegro.pl/offers/listing?phrase=majonez&category.id=73973&sort=+price&offset=0&limit=50' | jq '.items | select(.regular or .promoted) | .[] | .[] | .id + ", " + .name + ", " + .sellingMode.price.amount + ", "+ .seller.id'
